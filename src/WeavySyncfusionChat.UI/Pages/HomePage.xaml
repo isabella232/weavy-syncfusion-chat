@@ -14,8 +14,7 @@
     xmlns:viewModels="clr-namespace:WeavySyncfusionChat.Core.ViewModels.Home;assembly=WeavySyncfusionChat.Core"
                       Title="Messenger">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="New"
-                 IconImageSource="example_icon.png"
+        <ToolbarItem Text="New"                 
                  Order="Primary"
                  Priority="0" 
                      Command="{Binding NewConversationCommand}"/>
