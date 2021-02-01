@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<views:MvxContentPage x:TypeArguments="viewModels:NewConversationViewModel"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
+    xmlns:mvx="clr-namespace:MvvmCross.Forms.Bindings;assembly=MvvmCross.Forms"
+    xmlns:local="clr-namespace:WeavySyncfusionChat.UI.Pages"
+    x:Class="WeavySyncfusionChat.UI.Pages.NewConversationPage"
+    xmlns:viewModels="clr-namespace:WeavySyncfusionChat.Core.ViewModels.Conversation;assembly=WeavySyncfusionChat.Core"
+    xmlns:autocomplete="clr-namespace:Syncfusion.SfAutoComplete.XForms;assembly=Syncfusion.SfAutoComplete.XForms"
+    xmlns:ListCollection="clr-namespace:System.Collections.Generic;assembly=netstandard"
+    xmlns:localviews="clr-namespace:WeavySyncfusionChat.UI.Views"
+                      Title="New Conversation">
+
+    <StackLayout Padding="10">
+        <Label Text="Add participant(s)"></Label>
+        <autocomplete:SfAutoComplete 
+            x:Name="autoComplete"
+                DataSource="{Binding ResultList}"
+                HeightRequest="40"
+                AutoCompleteMode="Suggest"
+                MultiSelectMode="Token" 
+                TokensWrapMode="None" 
+                IsSelectedItemsVisibleInDropDown="false"                
+                SuggestionMode="StartsWith"
+                NoResultsFoundText="No Results Found"
+                DisplayMemberPath="Name" 
+                MaximumSuggestion="10"
+                ValueChanged="autoComplete_ValueChanged"
+                TextHighlightMode="FirstOccurrence"
+                HighlightedTextColor="Red"
+                HighlightedTextFontAttributes="Bold"
+                SelectedItem="{Binding SelectedUsers}"
+            >
+            <autocomplete:SfAutoComplete.TokenSettings>
+                <autocomplete:TokenSettings
+                        FontSize="15"
+                        BackgroundColor="#ccc"
+                        TextColor="#000" 
+                        SelectedBackgroundColor="#ffffe0"
+                        DeleteButtonColor="Red"
+                        DeleteButtonPlacement="Right"
+                        IsCloseButtonVisible="true"
+                        CornerRadius="5"/>
+            </autocomplete:SfAutoComplete.TokenSettings>
+            <autocomplete:SfAutoComplete.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout Orientation="Horizontal" Padding="2">                                                
+                        <Label Text="{Binding Name}" FontSize="13" LineBreakMode="TailTruncation" />
+                    </StackLayout>
+                </DataTemplate>
+            </autocomplete:SfAutoComplete.ItemTemplate>
+        </autocomplete:SfAutoComplete>
+        <Button Text="Add Conversation" Command="{Binding AddConversationCommand}"></Button>
+    </StackLayout>
+</views:MvxContentPage>
+    

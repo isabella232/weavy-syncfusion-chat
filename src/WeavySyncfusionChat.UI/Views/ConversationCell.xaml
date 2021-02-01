@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+             xmlns:converter="clr-namespace:WeavySyncfusionChat.Core.Converters;assembly=WeavySyncfusionChat.Core"
+            xmlns:badge ="clr-namespace:Syncfusion.XForms.BadgeView;assembly=Syncfusion.SfBadgeView.XForms"
+             x:Class="WeavySyncfusionChat.UI.Views.ConversationCell">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <converter:RelativeDateTimeConverter x:Key="RelativeDateTimeConverter" />
+            <converter:BadgeConverter x:Key="BadgeConverter" />
+            <converter:InverseBoolConverter x:Key="InverseBoolConverter" />
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <ContentView.Content>
+        <StackLayout Orientation="Horizontal" Margin="0" Padding="0" Spacing="0" BackgroundColor="#fff">
+
+            <ffimageloading:CachedImage 
+                    x:Name="CachedImage"
+			        WidthRequest="48" HeightRequest="48"
+			        DownsampleToViewSize="true"
+                    Margin="10"
+			        Source = "{Binding ThumbUrl}">
+                <ffimageloading:CachedImage.Transformations>
+                    <fftransformations:CircleTransformation/>
+                </ffimageloading:CachedImage.Transformations>
+            </ffimageloading:CachedImage>
+
+
+            
+            <StackLayout Padding="10" HorizontalOptions="FillAndExpand" IsVisible="{Binding IsRead}">
+
+                <Label Text="{Binding ConversationTitle}" FontSize="Medium" FontAttributes="None" LineBreakMode="TailTruncation"></Label>
+
+                <Grid ColumnSpacing="0"  HorizontalOptions="FillAndExpand">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition Width="15"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Text="{Binding LastMessageByName}" FontSize="Small" TextColor="#7d7d7d"></Label>
+                    <Label Grid.Column="1" Text="{Binding Description}" FontSize="Small" LineBreakMode="TailTruncation" TextColor="#7d7d7d"></Label>
+                    <Label Grid.Column="2" Text="{Binding LastMessageAt, Converter={StaticResource RelativeDateTimeConverter}}" FontSize="Small" TextColor="#7d7d7d" Padding="5, 0, 10, 0"></Label>
+                    
+                </Grid>
+                
+
+            </StackLayout>
+
+            <StackLayout Padding="10" HorizontalOptions="FillAndExpand" IsVisible="{Binding IsRead, Converter={StaticResource InverseBoolConverter}}">
+
+                <Label Text="{Binding ConversationTitle}" FontSize="Medium" FontAttributes="Bold" LineBreakMode="TailTruncation"></Label>
+
+                <Grid ColumnSpacing="0"  HorizontalOptions="FillAndExpand">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition Width="15"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Text="{Binding LastMessageByName}" FontSize="Small" FontAttributes="Bold" TextColor="#7d7d7d"></Label>
+                    <Label Grid.Column="1" Text="{Binding Description}" FontSize="Small"  FontAttributes="Bold" LineBreakMode="TailTruncation" TextColor="#7d7d7d"></Label>
+                    <Label Grid.Column="2" Text="{Binding LastMessageAt, Converter={StaticResource RelativeDateTimeConverter}}"  FontAttributes="Bold" FontSize="Small" TextColor="#7d7d7d" Padding="5, 0, 10, 0"></Label>
+
+                    <badge:SfBadgeView  BadgeText="" Padding="0" Margin="0" Grid.Column="3">
+                        <badge:SfBadgeView.Content>
+                            <Label Text=""></Label>
+                        </badge:SfBadgeView.Content>
+                        <badge:SfBadgeView.BadgeSettings>
+                            <badge:BadgeSetting BadgeType="Error" Offset="0,5" BadgePosition="TopRight" BadgeIcon="{Binding IsRead, Converter={StaticResource BadgeConverter}}"/>
+                        </badge:SfBadgeView.BadgeSettings>
+                    </badge:SfBadgeView>
+                </Grid>
+
+
+            </StackLayout>
+        </StackLayout>
+        
+        
+        
+
+    </ContentView.Content>
+</ContentView>

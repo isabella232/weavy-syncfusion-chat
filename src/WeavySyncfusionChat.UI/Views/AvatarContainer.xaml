@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+             xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+             x:Class="WeavySyncfusionChat.UI.Views.AvatarContainer">
+  <ContentView.Content>
+        <ffimageloading:SvgCachedImage 
+        HeightRequest="32"
+        WidthRequest="32"
+        HorizontalOptions="StartAndExpand" 
+        VerticalOptions="Start" 
+        DownsampleToViewSize="true"
+        
+        x:Name="imageWave" 
+        Source="{TemplateBinding BindingContext.Author.Avatar}"
+        Margin="0">
+            <ffimageloading:SvgCachedImage.Transformations>
+                <fftransformations:CircleTransformation/>
+            </ffimageloading:SvgCachedImage.Transformations>
+        </ffimageloading:SvgCachedImage>
+    </ContentView.Content>
+</ContentView>

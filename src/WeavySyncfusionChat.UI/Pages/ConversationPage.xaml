@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<views:MvxContentPage x:TypeArguments="viewModels:ConversationViewModel"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
+    xmlns:mvx="clr-namespace:MvvmCross.Forms.Bindings;assembly=MvvmCross.Forms"
+    xmlns:local="clr-namespace:WeavySyncfusionChat.UI.Pages"
+    xmlns:sfChat="clr-namespace:Syncfusion.XForms.Chat;assembly=Syncfusion.SfChat.XForms"
+    x:Class="WeavySyncfusionChat.UI.Pages.ConversationPage"
+    xmlns:viewModels="clr-namespace:WeavySyncfusionChat.Core.ViewModels.Conversation;assembly=WeavySyncfusionChat.Core"
+    xmlns:localviews="clr-namespace:WeavySyncfusionChat.UI.Views"
+                      Title="{Binding Title}">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="sfChat:ChatImageView">
+                <Setter Property="ControlTemplate">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <localviews:ImageContainer/>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            
+            <Style TargetType="sfChat:IncomingMessageAvatarView">
+                <Setter Property="ControlTemplate">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <localviews:AvatarContainer/>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style TargetType="sfChat:OutgoingMessageAvatarView">
+                <Setter Property="ControlTemplate">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <localviews:AvatarContainer/>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <sfChat:SfChat 
+        x:Name="sfChat" 
+        Messages="{Binding Messages}"
+        CurrentUser="{Binding CurrentUser}"
+        LoadMoreCommand="{Binding LoadMoreCommand}"
+        LoadMoreBehavior="Manual"
+        IsBusy="{Binding IsBusy}"  
+        ShowTimeBreak="True"
+        ShowTypingIndicator="{Binding ShowTypingIndicator}"
+        TypingIndicator="{Binding TypingIndicator}"
+        ShowOutgoingMessageAvatar="True"
+        SendMessageCommand="{Binding SendMessageCommand}"                
+        MessageShape="DualTearDrop"
+        >
+        <!--<sfChat:SfChat.MessageTemplate>
+            <DataTemplate>
+                <ViewCell>
+                    <localviews:CustomMessageCell/>
+                </ViewCell>                   
+            </DataTemplate>
+        </sfChat:SfChat.MessageTemplate>-->
+    </sfChat:SfChat>
+</views:MvxContentPage>
+    

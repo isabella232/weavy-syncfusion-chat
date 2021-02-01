@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<views:MvxContentPage x:TypeArguments="viewModels:LoginViewModel"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
+    xmlns:mvx="clr-namespace:MvvmCross.Forms.Bindings;assembly=MvvmCross.Forms"
+    xmlns:local="clr-namespace:WeavySyncfusionChat.UI.Pages"
+    x:Class="WeavySyncfusionChat.UI.Pages.LoginPage"
+    xmlns:viewModels="clr-namespace:WeavySyncfusionChat.Core.ViewModels.Login;assembly=WeavySyncfusionChat.Core"
+                      Title="Login">
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand"  Margin="30, 0">
+            <Label Text="Log in" HorizontalOptions="CenterAndExpand" />
+            <Entry x:Name="Username" Text="{Binding Username}" HorizontalOptions="FillAndExpand"></Entry>
+            <Entry x:Name="Password" Text="{Binding Password}" IsPassword="True"></Entry>
+            <Button x:Name="SignInButton" Text="Sign in" Command="{Binding SignInCommand}"></Button>
+        </StackLayout>
+    </ContentPage.Content>
+</views:MvxContentPage>
