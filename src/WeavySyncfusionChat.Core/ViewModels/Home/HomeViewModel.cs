@@ -156,9 +156,9 @@ namespace WeavySyncfusionChat.Core.ViewModels.Home
                             IsRoom = conversation.IsRoom,
                             IsRead = conversation.IsRead,
                             ConversationTitle = conversation.ConversationTitle,
-                            LastMessageAt = conversation.LastMessage.CreatedAt,
-                            LastMessageByName = conversation.LastMessage.CreatedBy.Id == Constants.Me.Id ? "Me: " : (conversation.IsRoom ? $"{conversation.LastMessage.CreatedBy.Name.Split(' ')[0]}: " : ""),
-                            Description = conversation.LastMessage.Text,
+                            LastMessageAt = conversation.LastMessage?.CreatedAt ?? DateTime.Now,
+                            LastMessageByName = conversation.LastMessage?.CreatedBy.Id == Constants.Me.Id ? "Me: " : (conversation.IsRoom ? $"{conversation.LastMessage?.CreatedBy.Name.Split(' ')[0]}: " : ""),
+                            Description = conversation.LastMessage?.Text,
                             ThumbUrl = conversation.ThumbUrlFull
                         });
                     }

@@ -13,7 +13,7 @@ Xamarin add-ons for Visual Studio (available via the Visual Studio installer).
 Sign in or create an account at Syncfusion. Go to your Dashboard and get the Trial or Paid license key for the Xamarin.Forms components. Open up this solution in Visual Studio and enter the license key in the `App.cs` file.
 
 # Configure Weavy
-The repo is pre-configured with an existing Weavy installation located at https://demo-chat.weavycloud.com. This is only for your convenience to get up and running quickly. We strongly recommend that you set up your own installation of Weavy. https://demo-chat.weavycloud.com is wiped clean every night so if you want to keep the conversations and users you test with, setup your own Weavy. Take a look at https://docs.weavy.com/server/get-started for more information how to setup Weavy locally.
+The repo is pre-configured with an existing Weavy installation located at https://showcase.weavycloud.com. This is only for your convenience to get up and running quickly. We strongly recommend that you set up your own installation of Weavy. https://showcase.weavycloud.com is wiped clean every night so if you want to keep the conversations and users you test with, setup your own Weavy. Take a look at https://docs.weavy.com/server/get-started for more information how to setup Weavy locally.
 
 Once you have your Weavy up and running you have to configure an authentication client. This is required for the JWT authentication to work. When signed in to Weavy, go to Manage -> Clients and create a new Client. Copy the Client ID and Client Secret. In the `Constants.cs` file in this chat demo repo, update the Client ID, Client Secret and the URL to your Weavy installation.
 
