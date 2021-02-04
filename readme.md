@@ -3,11 +3,15 @@ This repository is a showcase demo what you can do with Xamarin.Forms, Syncfusio
 We have built a chat app with some of the functionality available in Weavy. 
 The UI is power by some awesome [Syncfusion Xamarin.Forms](https://www.syncfusion.com/xamarin-ui-controls) components like sfChat, sfListView, sfAutoComplete and sfBadgeView.
 
-We have also used [MVVM Cross](https://www.mvvmcross.com/) framework for the MVVM pattern.
+# MVVM
+We have used [MVVM Cross](https://www.mvvmcross.com/) framework for the MVVM pattern.
 
 # Requirements to run the demo
 [Visual Studio 2019](https://visualstudio.microsoft.com/downloads/) or [Visual Studio for Mac](https://visualstudio.microsoft.com/vs/mac/).
 Xamarin add-ons for Visual Studio (available via the Visual Studio installer).
+
+# Tutorial
+Learn how we created this showcase chat app in our turorial at [Weavy Docs](https://docs.weavy.com/tutorials/syncfusion-chat).
 
 # Configure Syncfusion component licence
 Sign in or create an account at Syncfusion. Go to your Dashboard and get the Trial or Paid license key for the Xamarin.Forms components. Open up this solution in Visual Studio and enter the license key in the `App.cs` file.
