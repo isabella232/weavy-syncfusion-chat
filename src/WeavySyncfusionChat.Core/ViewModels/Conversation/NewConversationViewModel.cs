@@ -65,7 +65,7 @@ namespace WeavySyncfusionChat.Core.ViewModels.Conversation
 
                 if(conversation != null)
                 {
-                    MessagingCenter.Send<GenericMessageSender, ConversationItem>(GenericMessageSender.Instance, "OPEN_CONVERSATION", new ConversationItem { Id = conversation.Id, ConversationTitle = conversation.ConversationTitle });                    
+                    MessagingCenter.Send<GenericMessageSender, ConversationItem>(GenericMessageSender.Instance, "OPEN_CONVERSATION", new ConversationItem { Id = conversation.Id, ConversationTitle = conversation.Title });                    
                     await _navigationService.Close(this);
                 }
                 _isAdding = false;

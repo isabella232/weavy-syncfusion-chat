@@ -14,11 +14,11 @@ namespace WeavySyncfusionChat.Core.ViewModels.Conversation
             set => SetProperty(ref _id, value);
         }
 
-        private string _description;
-        public string Description
+        private string _lastMessage;
+        public string LastMessage
         {
-            get => _description;
-            set => SetProperty(ref _description, value);
+            get => _lastMessage;
+            set => SetProperty(ref _lastMessage, value);
         }
 
         private DateTime _lastMessageAt;

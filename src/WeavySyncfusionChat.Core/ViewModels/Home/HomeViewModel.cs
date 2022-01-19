@@ -99,7 +99,7 @@ namespace WeavySyncfusionChat.Core.ViewModels.Home
 
                         if (conversation != null)
                         {
-                            conversation.Description = message.Text;
+                            conversation.LastMessage = message.Text;
                             conversation.LastMessageAt = message.CreatedAt;
                             conversation.IsRead = false;
                             conversation.LastMessageByName = message.CreatedBy.Id == Constants.Me.Id ? "Me: " : (conversation.IsRoom ? $"{message.CreatedBy.Name.Split(' ')[0]}: " : "");
@@ -151,14 +151,12 @@ namespace WeavySyncfusionChat.Core.ViewModels.Home
                     {
                         List.Add(new ConversationItem
                         {
-                            Id = conversation.Id,
-                            Name = conversation.Name,
+                            Id = conversation.Id,                            
                             IsRoom = conversation.IsRoom,
                             IsRead = conversation.IsRead,
-                            ConversationTitle = conversation.ConversationTitle,
-                            LastMessageAt = conversation.LastMessage?.CreatedAt ?? DateTime.Now,
-                            LastMessageByName = conversation.LastMessage?.CreatedBy.Id == Constants.Me.Id ? "Me: " : (conversation.IsRoom ? $"{conversation.LastMessage?.CreatedBy.Name.Split(' ')[0]}: " : ""),
-                            Description = conversation.LastMessage?.Text,
+                            ConversationTitle = conversation.Title,
+                            LastMessageAt = !string.IsNullOrEmpty(conversation.LastMessageAt) ? DateTime.Parse(conversation.LastMessageAt) : DateTime.Now,
+                            LastMessage = conversation.LastMessage,                            
                             ThumbUrl = conversation.ThumbUrlFull
                         });
                     }

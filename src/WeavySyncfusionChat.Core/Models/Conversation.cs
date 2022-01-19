@@ -13,28 +13,27 @@ namespace WeavySyncfusionChat.Core.Models
 
         [JsonProperty("is_room")]
         public bool IsRoom { get; set; }
-
-        public string Name { get; set; }
-
-        public string Description { get; set; }
-
-        [JsonProperty("thumb")]
+              
+        
+        [JsonProperty("avatar_url")]
         public string ThumbUrl { get; set; }
 
-        [JsonProperty("last_message")]
-        public Message LastMessage { get; set; }
+        [JsonProperty("excerpt")]
+        public string LastMessage { get; set; }
 
-        public IEnumerable<Member> Members { get; set; }
+        [JsonProperty("last_message_at")]
+        public string LastMessageAt { get; set; }
 
+        
         [JsonProperty("is_read")]
         public bool IsRead { get; set; }
 
         [JsonProperty("is_pinned")]
         public bool IsPinned { get; set; }
 
-        public string ThumbUrlFull => $"{Constants.RootUrl}{(ThumbUrl.Replace("{options}", "64"))}";
+        public string ThumbUrlFull => $"{Constants.RootUrl}{ThumbUrl}";
 
-        public string ConversationTitle => IsRoom ? Name ?? string.Join(", ", Members.Select(x => x.Name)) : Members.FirstOrDefault(x => x.Id != Constants.Me.Id)?.Name;
+        public string Title { get; set; }
 
 
     }

@@ -31,7 +31,7 @@
             
             <StackLayout Padding="10" HorizontalOptions="FillAndExpand" IsVisible="{Binding IsRead}">
 
-                <Label Text="{Binding ConversationTitle}" FontSize="Medium" FontAttributes="None" LineBreakMode="TailTruncation"></Label>
+                <Label Text="{Binding Title}" FontSize="Medium" FontAttributes="None" LineBreakMode="TailTruncation"></Label>
 
                 <Grid ColumnSpacing="0"  HorizontalOptions="FillAndExpand">
                     <Grid.RowDefinitions>
@@ -43,8 +43,8 @@
                         <ColumnDefinition Width="Auto"></ColumnDefinition>
                         <ColumnDefinition Width="15"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <Label Grid.Column="0" Text="{Binding LastMessageByName}" FontSize="Small" TextColor="#7d7d7d"></Label>
-                    <Label Grid.Column="1" Text="{Binding Description}" FontSize="Small" LineBreakMode="TailTruncation" TextColor="#7d7d7d"></Label>
+                    
+                    <Label Grid.Column="0" Text="{Binding LastMessage}" FontSize="Small" LineBreakMode="TailTruncation" TextColor="#7d7d7d"></Label>
                     <Label Grid.Column="2" Text="{Binding LastMessageAt, Converter={StaticResource RelativeDateTimeConverter}}" FontSize="Small" TextColor="#7d7d7d" Padding="5, 0, 10, 0"></Label>
                     
                 </Grid>
@@ -54,7 +54,7 @@
 
             <StackLayout Padding="10" HorizontalOptions="FillAndExpand" IsVisible="{Binding IsRead, Converter={StaticResource InverseBoolConverter}}">
 
-                <Label Text="{Binding ConversationTitle}" FontSize="Medium" FontAttributes="Bold" LineBreakMode="TailTruncation"></Label>
+                <Label Text="{Binding Title}" FontSize="Medium" FontAttributes="Bold" LineBreakMode="TailTruncation"></Label>
 
                 <Grid ColumnSpacing="0"  HorizontalOptions="FillAndExpand">
                     <Grid.RowDefinitions>
@@ -65,9 +65,8 @@
                         <ColumnDefinition Width="*"></ColumnDefinition>
                         <ColumnDefinition Width="Auto"></ColumnDefinition>
                         <ColumnDefinition Width="15"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Column="0" Text="{Binding LastMessageByName}" FontSize="Small" FontAttributes="Bold" TextColor="#7d7d7d"></Label>
-                    <Label Grid.Column="1" Text="{Binding Description}" FontSize="Small"  FontAttributes="Bold" LineBreakMode="TailTruncation" TextColor="#7d7d7d"></Label>
+                    </Grid.ColumnDefinitions>                    
+                    <Label Grid.Column="0" Text="{Binding LastMessage}" FontSize="Small"  FontAttributes="Bold" LineBreakMode="TailTruncation" TextColor="#7d7d7d"></Label>
                     <Label Grid.Column="2" Text="{Binding LastMessageAt, Converter={StaticResource RelativeDateTimeConverter}}"  FontAttributes="Bold" FontSize="Small" TextColor="#7d7d7d" Padding="5, 0, 10, 0"></Label>
 
                     <badge:SfBadgeView  BadgeText="" Padding="0" Margin="0" Grid.Column="3">

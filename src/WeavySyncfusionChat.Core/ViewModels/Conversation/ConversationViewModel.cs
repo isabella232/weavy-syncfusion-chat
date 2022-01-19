@@ -32,7 +32,8 @@ namespace WeavySyncfusionChat.Core.ViewModels.Conversation
             _hubService = hubService;
             Messages = new ObservableCollection<object>();
 
-            LoadMoreCommand = new Command<object>(execute: (o) => {
+            LoadMoreCommand = new Command<object>(execute: (o) =>
+            {
                 Task.Run(async () => await LoadMessages(clear: false, skip: _skip)).Wait();
             },
             canExecute: (o) =>
@@ -40,12 +41,13 @@ namespace WeavySyncfusionChat.Core.ViewModels.Conversation
                 return _canLoadMore;
             });
 
-            SendMessageCommand = new Command(execute: async (args) => {
-                var arguments = (args as SendMessageEventArgs);                
+            SendMessageCommand = new Command(execute: async (args) =>
+            {
+                var arguments = (args as SendMessageEventArgs);
 
                 // the message is inserted from the signalr realtime hub, so we can set handled to true here.
                 arguments.Handled = true;
-                
+
                 await SendMessage(arguments);
 
                 MessagingCenter.Send<GenericMessageSender>(GenericMessageSender.Instance, "CLEAR_EDITOR");
@@ -53,7 +55,7 @@ namespace WeavySyncfusionChat.Core.ViewModels.Conversation
             canExecute: (args) =>
             {
                 return true;
-            });            
+            });
         }
 
         private async Task SendMessage(SendMessageEventArgs arguments)
@@ -75,34 +77,44 @@ namespace WeavySyncfusionChat.Core.ViewModels.Conversation
             Task.Run(async () => await _conversationService.MarkAsRead(Id)).Wait();
         }
 
+        private List<IMessage> CreateSyncfusionMessages(Models.SignalrMessage message)
+        {
+            return CreateSyncfusionMessages(message.CreatedById, message.CreatedByName, message.CreatedAt, message.CreatedByThumbFull, message.AttachmentsIds, message.Text);
+        }
+
         private List<IMessage> CreateSyncfusionMessages(Models.Message message)
         {
+            return CreateSyncfusionMessages(message.CreatedById, message.CreatedByName, message.CreatedAt, message.CreatedByThumbFull, message.AttachmentsIds, message.Text);
+        }
 
-            var author = (message.CreatedBy?.Id == Constants.Me.Id) ? _currentUser : new Author { Name = message.CreatedBy?.Name, Avatar = message.CreatedBy.ThumbUrlFull };
+        private List<IMessage> CreateSyncfusionMessages(int createdById, string createdByName, DateTime createdAt, string createdByThumbFull, IEnumerable<int> attachmentsIds, string text)
+        {
+
+            var author = (createdById == Constants.Me.Id) ? _currentUser : new Author { Name = createdByName, Avatar = createdByThumbFull.Replace("{options}", "64") };
             var messages = new List<IMessage>();
 
-            if (message.Attachments.Any())
+            if (attachmentsIds.Any())
             {
                 // create the first image message
                 messages.Add(new ImageMessage()
                 {
-                    Text = message.Text,
-                    Source = $"{Constants.RootUrl}/attachments/{message.Attachments.First().ToString()}/attachment-512.png",
-                    DateTime = message.CreatedAt,
+                    Text = text,
+                    Source = $"{Constants.RootUrl}/attachments/{attachmentsIds.First().ToString()}/attachment-512.png",
+                    DateTime = createdAt,
                     Author = author,
                 });
 
 
                 // if more attachments, create the image messages
-                if(message.Attachments.Count > 1)
+                if (attachmentsIds.Count() > 1)
                 {
-                    foreach (var attachment in message.Attachments.Skip(1))
+                    foreach (var attachment in attachmentsIds.Skip(1))
                     {
                         messages.Add(new ImageMessage()
                         {
                             Text = "",
                             Source = $"{Constants.RootUrl}/attachments/{attachment}/attachment-512.png",
-                            DateTime = message.CreatedAt,
+                            DateTime = createdAt,
                             Author = author,
                         });
                     }
@@ -112,8 +124,8 @@ namespace WeavySyncfusionChat.Core.ViewModels.Conversation
             {
                 messages.Add(new TextMessage
                 {
-                    Text = message.Text,
-                    DateTime = message.CreatedAt,
+                    Text = text,
+                    DateTime = createdAt,
                     Author = author
                 });
             }
@@ -135,9 +147,9 @@ namespace WeavySyncfusionChat.Core.ViewModels.Conversation
                         if (typing.Conversation.Equals(Id) && typing.User.Id != Constants.Me.Id)
                         {
                             TypingIndicator = new ChatTypingIndicator();
-                            TypingIndicator.Authors.Add(new Author() { Name = typing.User.Name });
+                            TypingIndicator.Authors.Add(new Author() { Name = typing.User.Username });
                             TypingIndicator.AvatarViewType = AvatarViewType.Text;
-                            TypingIndicator.Text = $"{typing.User.Name} is typing...";
+                            TypingIndicator.Text = $"{typing.User.Username} is typing...";
                             ShowTypingIndicator = true;
 
                             Task.Factory.StartNew(() =>
@@ -233,7 +245,7 @@ namespace WeavySyncfusionChat.Core.ViewModels.Conversation
         public ICommand SendMessageCommand
         {
             get => _sendMessageCommand;
-            set => SetProperty(ref _sendMessageCommand, value);            
+            set => SetProperty(ref _sendMessageCommand, value);
         }
 
         private ICommand _loadMoreCommand;
@@ -260,11 +272,11 @@ namespace WeavySyncfusionChat.Core.ViewModels.Conversation
 
                 var messages = await _conversationService.GetMessages(Id, top, skip);
 
-                if(messages != null && messages.Data != null)
+                if (messages != null && messages.Data != null)
                 {
                     foreach (var message in messages.Data.Reverse())
                     {
-                        var isByMe = message.CreatedBy?.Id == Constants.Me.Id;
+                        var isByMe = message.CreatedById == Constants.Me.Id;
                         var newMessages = CreateSyncfusionMessages(message);
 
                         foreach (var addedMessage in newMessages)
@@ -295,8 +307,8 @@ namespace WeavySyncfusionChat.Core.ViewModels.Conversation
             finally
             {
                 IsBusy = false;
-            }         
+            }
         }
     }
-   
+
 }
